@@ -23,5 +23,8 @@ RUN pip3 install -r requirements.txt
 RUN cp docker/nginx/genie_bridge.nginx /etc/nginx/sites-enabled/
 RUN cp -r docker/service/* /etc/service/
 
+# -- Build With:
+# docker build -t genie_bridge:$(cat docker/version) .
+
 # --- Run With:
-# docker run --name <> -p <host_port>:80 -v </host/path/to/tls/dir/>:/opt/genie_bridge/tls/ -v </host/path/do/log/dir>:/var/log <image>
+# docker run --name <> -p <host_port>:443 -v </host/path/to/tls/dir/>:/opt/tls/ -v </host/path/do/log/dir>:/var/log <image>
