@@ -1,0 +1,9 @@
+{% extends "usage_base.html" %}
+
+{% block extracontent %}
+  <ul>
+  {% for ep in endpoints %}
+    <li><b>{{ep.path}}</b></li>
+  {% endfor %}
+  </ul>
+{% endblock %}

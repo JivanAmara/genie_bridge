@@ -1,0 +1,22 @@
+{% extends "usage_base.html" %}
+
+{% block extracontent %}
+<div>
+  <p>Send credentials in a POST request w/ json body:</p>
+<pre>
+{
+    "{{userkey}}": {4d username},
+    "{{passwordkey}}": {4d password}
+}
+</pre>
+
+<p>On success expect a 200 response w/ json body:</p>
+<pre>
+{
+    "token": {auth token}
+}
+</pre>
+
+{% include 'usage_error_snippet.html' %}
+
+{% endblock %}
