@@ -1,0 +1,23 @@
+{% extends 'usage_base.html' %}
+
+{% block extracontent %}
+<p>Send api token in POST request:</p>
+<pre>
+{"token": {api token}}
+</pre>
+
+<p>On success expect a 200 response w/ json body:</p>
+<pre>
+[
+  {
+    "aptduration": ...,
+    "startdate": ...,
+    "enddate": ...,
+    "starttime": ...
+  },
+  ...
+]
+</pre>
+
+{% include 'usage_error_snippet.html' %}
+{% endblock %}

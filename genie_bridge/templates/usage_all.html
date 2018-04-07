@@ -3,7 +3,15 @@
 {% block extracontent %}
   <ul>
   {% for ep in endpoints %}
-    <li><b>{{ep.path}}</b></li>
+    <li><b><a href="#{{ep.path}}">{{ep.path}}</a></b></li>
   {% endfor %}
   </ul>
+  <hr>
+
+  {% for ep in endpoints %}
+    <a name="{{ep.path}}"></a>
+    {{ep.doc_html|safe}}
+    <hr>
+  {% endfor %}
+
 {% endblock %}
