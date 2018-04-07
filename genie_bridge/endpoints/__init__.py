@@ -8,6 +8,7 @@ class InvalidToken(Exception):
 
 HTTPStatusOk = 200
 HTTPStatusClientError = 400
+HTTPStatusUnauthenticated = 401
 HTTPStatusServerError = 500
 
 # This is a list of active endpoints, populated through Endpoint.__init__()
@@ -41,18 +42,18 @@ class Endpoint():
         ''' Uses doc_html instead of func() for GET requests
         '''
         get_handler = lambda: (self.doc_html, 200)
-        def wrapped_func():
+        def wrapped_func(*args, **kwargs):
             if flask.request.method == 'GET':
                 return get_handler()
             else:
-                return func()
+                return func(*args, **kwargs)
         return wrapped_func
 
 def register_endpoint(app, path, doc_template, extra_context={}):
     def decorator(handler):
         ep = Endpoint(app, path, handler, doc_template, extra_context)
-        def wrapped_func():
-            return ep
+        def wrapped_func(*args, **kwargs):
+            return ep(*args, **kwargs)
         # The function doesn't get used directly, so don't return a wrapped function.
         return wrapped_func
     return decorator
@@ -61,6 +62,8 @@ def err_resp(msg, status):
     json_msg = json.dumps({"detail": msg})
     resp = flask.Response(json_msg)
     resp.headers['Content-Type'] = 'application/json'
+    if status == 401:
+        resp.headers['WWW-Authenticate'] = 'Bearer'
     return resp, status
 
 # Encode types not supported by default for json encoding

@@ -1,8 +1,15 @@
 import flask
 
-from genie_bridge.endpoints import endpoint_list, err_resp, login, try1
+# Endpoint helpers
+from genie_bridge.endpoints import endpoint_list, err_resp
+# Enpoints
+from genie_bridge.endpoints import login, updated_appts
 
 app = flask.Flask(__name__)
+
+# Register endpoints
+login.register(app)
+updated_appts.register(app)
 
 @app.route('/', methods=['GET'])
 def usage_all():
@@ -17,13 +24,9 @@ http_errors = {
 
 }
 for status, message in http_errors.items():
-    def error_handler(e):
+    @app.errorhandler(status)
+    def eh(e):
         return err_resp(message, status)
-    app.error_handler_spec[None][404] = error_handler
-
-# Register endpoints
-login.register(app)
-try1.register(app)
 
 if __name__ == '__main__':
     app.run()

@@ -1,9 +1,14 @@
 {% extends 'usage_base.html' %}
 
 {% block extracontent %}
-<p>Send api token in POST request:</p>
+<ul>
+  <li>Send cutoff date as {<b>since</b>} in url.  Takes the format 'YYYYMMDDHHMMSS'</li>
+  <li>Send api token in POST request:</li>
+</ul>
 <pre>
-{"token": {api token}}
+{
+  "token": {api token},
+}
 </pre>
 
 <p>On success expect a 200 response w/ json body:</p>
