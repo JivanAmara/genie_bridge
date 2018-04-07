@@ -18,6 +18,8 @@ COPY . ${PROJECT_DIR}
 WORKDIR ${PROJECT_DIR}
 ENV PYTHONPATH=${PROJECT_DIR}
 RUN pip3 install -r requirements.txt
+# Install p4d
+RUN cd manual_packages; tar -xvf p4d-1.5.tar.gz; cd p4d-1.5; python3 setup.py install
 
 # --- Prepare initialization scripts to run & services to start on container start
 RUN cp docker/nginx/genie_bridge.nginx /etc/nginx/sites-enabled/

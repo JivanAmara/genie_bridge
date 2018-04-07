@@ -16,4 +16,5 @@ tokenkey = "token"
 
 ResponseJSONTimeFormat = '%H:%M:%S' # i.e. 13:00:00
 ResponseJSONDateTimeFormat = '%Y-%m-%d_%H:%M:%S' # i.e. 2018-01-01_13:00:00
-DBHost = os.environ.get('DBHost')
+# If DB_HOST isn't set, use HOSTNAME
+DBHost = os.environ.get('DB_HOST')

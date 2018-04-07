@@ -41,7 +41,7 @@ def register(app):
             # db = p4d.connect(user="dr a demo", password="genie1", host="127.0.0.1")
         except p4d.OperationalError as ex:
             if str(ex) == 'Unable to connect to 4D Server':
-                return err_resp("invalid user, password, or host", HTTPStatusClientError)
+                return err_resp("invalid user, password, or host ({})".format(DBHost), HTTPStatusClientError)
             else:
                 return err_resp(str(ex), HTTPStatusServerError)
         except Exception as ex:
