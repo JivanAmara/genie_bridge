@@ -1,0 +1,28 @@
+{% extends 'usage_base.html' %}
+
+{% block extracontent %}
+<ul>
+  <li>Send record limit as {<b>limit</b>} in url.</li>
+  <li>Send api token in POST request:</li>
+</ul>
+<pre>
+{
+  "token": {api token},
+}
+</pre>
+
+<p>On success expect a 200 response w/ json body:</p>
+<pre>
+[
+  {
+    "aptduration": ...,
+    "startdate": ...,
+    "enddate": ...,
+    "starttime": ...
+  },
+  ...
+]
+</pre>
+
+{% include 'usage_error_snippet.html' %}
+{% endblock %}

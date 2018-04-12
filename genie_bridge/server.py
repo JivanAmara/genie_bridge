@@ -3,13 +3,14 @@ import flask
 # Endpoint helpers
 from genie_bridge.endpoints import endpoint_list, err_resp
 # Enpoints
-from genie_bridge.endpoints import login, updated_appts
+from genie_bridge.endpoints import login, updated_appts, patient_data
 
 app = flask.Flask(__name__)
 
 # Register endpoints
 login.register(app)
 updated_appts.register(app)
+patient_data.register(app)
 
 @app.route('/', methods=['GET'])
 def usage_all():
