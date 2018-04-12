@@ -7,8 +7,9 @@ RUN apt-get update
 RUN apt-get install -y python3 python3-pip nginx
 RUN rm /etc/nginx/sites-enabled/default
 RUN mkdir -p ${PROJECT_DIR}
-RUN touch /var/log/gunicorn_genie_bridge.log
-RUN chmod a+rw /var/log/gunicorn_genie_bridge.log
+# Change nginx log file location from /var/log/nginx -> /var/log/genie_bridge
+RUN sed -i -- 's/\/var\/log\/nginx/\/var\/log\/genie_bridge/g' /etc/nginx/nginx.conf
+RUN mkdir /var/log/genie_bridge
 
 # --- Set up python code
 # Problem w/ pip==9.0.2
@@ -28,5 +29,8 @@ RUN cp -r docker/service/* /etc/service/
 # -- Build With:
 # docker build -t genie_bridge:$(cat docker/version) .
 
+# -- (One time) Generate TLS cert/key
+# https://linode.com/docs/security/ssl/create-a-self-signed-tls-certificate/
+
 # --- Run With:
-# docker run --name <> -p <host_port>:443 -v </host/path/to/tls/dir/>:/opt/tls/ -v </host/path/do/log/dir>:/var/log <image>
+# docker run --name <> -e DB_HOST=<> -p <host_port>:443 -v </host/path/to/tls/dir/>:/opt/tls/ -v </host/path/to/log/dir>:/var/log/genie_bridge/ <image>

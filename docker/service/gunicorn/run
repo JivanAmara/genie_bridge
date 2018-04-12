@@ -2,6 +2,6 @@
 exec gunicorn \
 	-b 127.0.0.1:8001 \
 	--pythonpath /opt/genie_bridge \
-	--log-file /var/log/gunicorn_genie_bridge.log \
+	--log-file /var/log/genie_bridge/gunicorn.log \
 	--log-level=debug \
 	genie_bridge.server:app
