@@ -23,6 +23,7 @@ def register(app):
         cursor = db.cursor()
         cols = ['id', 'firstname', 'surname', 'dob', 'sex', 'HomePhone', 'EmailAddress',
             'AddressLine1', 'suburb', 'state', 'postcode', 'accounttype',
+            'HealthFundName',
         ]
         sql = 'SELECT ' + ', '.join(cols) + ' FROM Patient limit {}'.format(limit)
         cursor.execute(sql)
