@@ -7,8 +7,8 @@ from genie_bridge.endpoints import (
 from genie_bridge.db import get_db
 
 def register(app):
-    @register_endpoint(app, "/patient_data/<limit>", 'usage_patient_data.html')
-    def patient_data(limit):
+    @register_endpoint(app, "/patient_data/<since>/<before>", 'usage_patient_data.html')
+    def patient_data(since, before):
         req = flask.request
         if not req.is_json:
             return err_resp('request content is not json', HTTPStatusClientError)
@@ -23,9 +23,9 @@ def register(app):
         cursor = db.cursor()
         cols = ['id', 'firstname', 'surname', 'dob', 'sex', 'HomePhone', 'EmailAddress',
             'AddressLine1', 'suburb', 'state', 'postcode', 'accounttype',
-            'HealthFundName',
+            'HealthFundName', 'LastUpdated',
         ]
-        sql = 'SELECT ' + ', '.join(cols) + ' FROM Patient limit {}'.format(limit)
+        sql = "SELECT " + ", ".join(cols) + " FROM Patient WHERE LastUpdated >= '{}' AND LastUpdated < '{}' ORDER BY LastUpdated DESC".format(since, before)
         cursor.execute(sql)
         result = cursor.fetchall()
         print(result)
