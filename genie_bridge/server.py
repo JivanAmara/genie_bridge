@@ -3,14 +3,15 @@ import flask
 # Endpoint helpers
 from genie_bridge.endpoints import endpoint_list, err_resp
 # Enpoints
-from genie_bridge.endpoints import login, updated_appts, patient_data
+from genie_bridge.endpoints import login, appointment_data, patient_data, procedure_data
 
 app = flask.Flask(__name__)
 
 # Register endpoints
 login.register(app)
-updated_appts.register(app)
+appointment_data.register(app)
 patient_data.register(app)
+procedure_data.register(app)
 
 @app.route('/', methods=['GET'])
 def usage_all():
@@ -22,7 +23,6 @@ http_errors = {
     400: "client error",
     404: "page not found",
     500: "internal server error",
-
 }
 for status, message in http_errors.items():
     @app.errorhandler(status)
