@@ -30,8 +30,9 @@ def get_db(token):
 
 def clean_db_connections():
     n = datetime.now()
-    for token, db_details in db_connections.items():
-        if n - db_details["last_access"] > TokenInactivityTimeout:
-            if db_connections[token]["db"].connected:
-                db_connections[token]["db"].close()
-            del db_connections[token]
+    tokens = list(db_connections.keys())
+    for t in tokens:
+        if n - db_connections[t]["last_access"] > TokenInactivityTimeout:
+            if db_connections[t]["db"].connected:
+                db_connections[t]["db"].close()
+            del db_connections[t]
