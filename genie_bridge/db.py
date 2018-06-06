@@ -40,5 +40,5 @@ def clean_db_connections():
                 try:
                     db_connections[t]["db"].close()
                 except Exception as e:
-                    logger.Error(e)
+                    logger.error(e)
             del db_connections[t]
