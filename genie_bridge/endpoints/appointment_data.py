@@ -22,7 +22,7 @@ def register(app):
 
         cursor = db.cursor()
 
-        cols = ['startdate', 'starttime', 'enddate', 'apptduration', 'LastUpdated', 'PT_Id_Fk']
+        cols = ['startdate', 'starttime', 'enddate', 'apptduration', 'LastUpdated', 'PT_Id_Fk', 'ProviderName', 'ProviderID']
         cursor.execute('''SELECT {cols}
                           FROM Appt WHERE LastUpdated >= '{since}' AND LastUpdated < '{before}'
                           ORDER BY LastUpdated DESC
